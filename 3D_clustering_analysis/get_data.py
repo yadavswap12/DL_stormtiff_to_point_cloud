@@ -1,0 +1,80 @@
+"""
+Function to get the data from all the files in given path.
+Returns a list with each element of list being data from single file in given file path.
+
+data_path - full path of directory where data is located.
+
+data_type = A string argument specifying the data type.  
+
+Swapnil 10/21
+"""
+
+import glob
+import pickle
+import re
+
+def getData(data_path, data_type):
+
+    if (data_type == "tiles"):
+    
+        data = []
+                
+        # Get files in sorted order according to number in filename.
+        tile_files = sorted(glob.glob1(data_path, "*.data"), key=lambda x:float(re.findall("(\d+)",x)[0]))
+        
+        for tile_file in tile_files:
+                    
+            # Read from the file and save it to an array 
+            with open(data_path + tile_file, 'rb') as filehandle:
+                tile = pickle.load(filehandle)
+            
+            data.append(tile)
+            
+    elif (data_type == "num_locs"):
+
+        data = []
+                        
+        # Get files in sorted order according to number in filename.
+        num_locs_tile_files = sorted(glob.glob1(data_path, "storm_num_locs_tile_" + "*.data"), key=lambda x:float(re.findall("(\d+)",x)[0])) 
+
+        for num_locs_tile_file in num_locs_tile_files:
+                    
+            # Read from the file and save it to an array 
+            with open(data_path + num_locs_tile_file, 'rb') as filehandle:
+                num_locs_tile = pickle.load(filehandle)                      
+            
+            data.append(num_locs_tile)
+            
+    elif (data_type == "num_locs_est_lin_fit"):
+
+        data = []
+                
+        # Get files in sorted order according to number in filename.
+        num_locs_est_tile_files = sorted(glob.glob1(data_path, "storm_num_locs_est_lin_fit_tile_" + "*.data"), key=lambda x:float(re.findall("(\d+)",x)[0]))
+
+        for num_locs_est_tile_file in num_locs_est_tile_files:
+                    
+            # Read from the file and save it to an array 
+            with open(data_path + num_locs_est_tile_file, 'rb') as filehandle:
+                num_locs_est_tile = pickle.load(filehandle)             
+            
+            data.append(num_locs_est_tile)
+
+    elif (data_type == "num_locs_est_quad_fit"):
+
+        data = []
+                
+        # Get files in sorted order according to number in filename.
+        num_locs_est_tile_files = sorted(glob.glob1(data_path, "storm_num_locs_est_quad_fit_tile_" + "*.data"), key=lambda x:float(re.findall("(\d+)",x)[0]))        
+ 
+        for num_locs_est_tile_file in num_locs_est_tile_files:
+        
+            # Read from the file and save it to an array 
+            with open(data_path + num_locs_est_tile_file, 'rb') as filehandle:
+                num_locs_est_tile = pickle.load(filehandle)              
+            
+            data.append(num_locs_est_tile)            
+            
+    return data        
+    
+        
